@@ -1,0 +1,23 @@
+auth-token =   eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjU2ZTUxZTFmYjVkNTFjMjg5NDhjOGQiLCJpYXQiOjE2NDk5MzI3NTl9._DkN3Eg22naHbFflhORa2cDhIMa7UzWDJrtops2v5vY
+
+
+
+
+{
+	"book_name":"Novel 1",
+	"author":"author 1",
+	"user_posted": "6256e51e1fb5d51c28948c8d",
+	"latitude": "2341",
+	"longitude": "6474"
+}
+
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjU5NDM0YmQ4M2M3MGI4NTZhMTU0OTQiLCJpYXQiOjE2NTAwMTcwOTl9.vUTZtTaQ42xVDKw0rPJDLNXcWxOiD_SGAaAhlhv7VfE
+
+
+"title":"Where does it come from?",
+"body":"Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.",
+"likes":0,
+"user_posted": "6256e51e1fb5d51c28948c8d",
+"user_posted_comment":"6257cd86ad79fd8c55827eb6",
+"commentBody":"Awesome Post !"
