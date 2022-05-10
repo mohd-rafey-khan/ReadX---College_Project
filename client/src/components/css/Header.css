@@ -76,3 +76,27 @@
     font-size: 25px;
     margin-right: 10px;
 }
+
+.like_btn{
+    cursor: pointer;
+}
+.like_btn:hover{
+    color: brown;
+}
+
+/* post card
+ */
+
+.postCard{
+   width: 18rem;
+   border: 1px solid #948f8f;
+   margin-top: 50px;
+}
+.postCardsection{
+    padding-top: 10px;
+}
+.imgpostcard{
+    height: 250px;
+    width: 100%;
+    /* width: fit-content; */
+}

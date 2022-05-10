@@ -16,10 +16,22 @@ const exchnage_postSchema = new mongoose.Schema({
     user_posted:{
         type: String
     },
+    post_img:{
+        type: String,
+        min: 6,
+        max: 255
+    },
     location:{
-        type: Array
+        type: {
+            type: String
+        },
+        coordinates: {
+            type: Array
+        }
     }
 });
+
+exchnage_postSchema.index({location: '2dsphere'});
 
 exchnage_postSchema.plugin(findOrCreate);
 

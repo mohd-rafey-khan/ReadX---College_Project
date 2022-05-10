@@ -4,7 +4,7 @@ const Post = require('../models/ExchangePost');
 
 
 
-router.get("/all",isAuthenticated, async (req,res)=>{
+router.get("/all", async (req,res)=>{
     // fetch exchange post 
     const allExchangePost =  await Post.find();
     res.send(allExchangePost); 
@@ -18,6 +18,25 @@ router.get("/:postID/", isAuthenticated, async (req,res)=>{
 router.get("/", isAuthenticated, async (req,res)=>{
     const postByLgLt = await Post.find({location:{ $elemMatch : { latitude: req.query.latitude, longitude: req.query.longitude } }});
     res.send(postByLgLt);
+});
+
+router.get("/:latitude/:longitude/:distance", async (req, res) => {
+    
+    const query = {
+        'location': { 
+            $near: { 
+                $geometry: {
+                    type: 'Point',
+                    coordinates: [req.params.latitude, req.params.longitude]
+                },
+                $minDistance: 0,
+                $maxDistance: req.params.distance
+            }
+        }
+    };
+    const result = await Post.find(query);
+
+    res.status(200).send(result);
 });
 
 

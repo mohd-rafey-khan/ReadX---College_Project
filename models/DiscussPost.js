@@ -24,18 +24,6 @@ const discuss_postSchema = new mongoose.Schema({
     createdAt:{
         type:String
     },
-    // comments:{
-    //     _id:{
-    //         type: String
-    //     },
-    //     user_posted:{
-    //         // it store id of user posted.
-    //         type: String  
-    //     },
-    //     body:{
-    //         type: String
-    //     }
-    // },
     comments:[
        {
             _id:{

@@ -7,19 +7,22 @@ const User = require('../models/User');
 
 
 
-router.post("/exchangepost", isAuthenticated, async (req,res)=>{
+router.post("/exchangepost", async (req,res)=>{
     const post = new Post({
         book_name:req.body.book_name,
         author:req.body.author,
         user_posted:req.body.user_posted,
-        location: [{"latitude":req.body.latitude,"longitude":req.body.longitude}]
+        post_img:req.body.image_name,
+        location: {
+            type: "Point",
+            coordinates: [Number(req.body.latitude),Number(req.body.longitude)]
+        }
     }); 
     try{
         const savedPost = await post.save();
+        res.send("post Created");
     }catch(err){
-        res.send(400).send(err);
-    }finally{
-        res.send("Post created");
+        res.send("some error");
     }
 });
 
@@ -51,7 +54,7 @@ router.post("/discusspost", async (req,res)=>{
     }catch(err){
         res.send(400).send(err);
     }finally{
-        res.send("Discusspost  created with comment");
+        res.send(comment);
     }
 });
 

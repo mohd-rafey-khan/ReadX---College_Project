@@ -36,8 +36,23 @@ const IndDiscuss = (props)=>{
 
     const addComment = async (event)=>{
         event.preventDefault();
-        setComments([...allcomments,{user_posted:"Piyush",body:input}]);
-        // setInput(" ");
+        setComments([...allcomments,{user_posted:props.userName,body:input}]);
+        try {
+            const commented = await axios.post('http://localhost:8080/api/discusspost/commented',
+                {
+                    id:demo,
+                    user_name:props.userName,
+                    comment_body:input,
+                },
+                {
+                    headers: { 'Content-Type':'application/json'},
+                }
+            )  
+        } catch (error) {
+            console.log("Comment Failed ! "+error);
+        }
+
+        setInput(" ");
     }
     const onInputChange = async (event)=>{
         setInput(event.target.value);
@@ -70,13 +85,15 @@ const IndDiscuss = (props)=>{
                             } */}
                             </div>
                             <div class="stck col-md-5 ">
-                                <h1 className="title_name_markup">Leave Comment Here ..</h1><br></br>
+                                <h1 className="title_name_markup">Leave Comment Here .. {props.userName} </h1> <br></br>
                                 <form onSubmit={addComment} className="row">
                                     <div className="col-8">
                                     <div className="form-floating">
                                     <textarea class="form-control"  
                                         placeholder="Leave a comment here" 
                                         id="floatingTextarea"
+                                        value={input}
+                                        required
                                         onChange={onInputChange}
                                     >
                                     </textarea>

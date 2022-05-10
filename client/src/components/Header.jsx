@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {BrowserRouter as Router, Link, Routes, Route} from "react-router-dom";
 import "./css/Header.css";
 import Home from "../Pages/Home";
@@ -6,7 +6,35 @@ import Discuss from "../Pages/Discuss";
 import IndDiscuss from "../Pages/IndDiscuss";
 import Login from "../Pages/Login";
 
+
 export default ()=>{
+
+
+    const [loginStatus, setloginStatus] = useState("Login..");
+    const [token, setToken] = useState(localStorage.token);
+    const [loginActions, setloginActions] = useState("");
+    const [urlLogout, setUrlLgt] = useState("/login");
+    const [logNameUser,setLogName] = useState("");
+    const [loguserId, setloguserId] = useState("");
+
+
+    const logout = async ()=>{
+        setloginStatus("Logout..");
+        localStorage.clear();
+    }
+    useEffect(()=>{
+        if(token===undefined){
+            // means logout
+            setloginStatus("Login..");
+            setloginActions("");
+        }else{
+            setloginActions(logout);
+            setUrlLgt("/");
+            setloginStatus("Logout..");
+        }
+    },[loginStatus,token]);
+
+
     return(
         <> 
         <Router>
@@ -31,9 +59,12 @@ export default ()=>{
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
-                    <Link class="nav-link" to="/login">Login..</Link>
-                    {/* <a class="nav-link" href="#">Login..</a> */}
-                    <a class="nav-link" href="#">Register ..</a>
+                    {
+                        <Link class="nav-link" onClick={loginActions} to={urlLogout}>{loginStatus}</Link> 
+                    }
+                    {/* <Link class="nav-link" to="/login">Login..</Link> */}
+                    {/* <a class="nav-link" href="#">Register ..</a> */}
+                    {/* <a href="#" onClick={logout}>Logout..</a> */}
                     </div>
                 </div>
             </nav>
@@ -45,9 +76,9 @@ export default ()=>{
             </div>
             <Routes>
                 <Route path="/" element={<Home/>} />
-                <Route path="/discuss" element={<Discuss/>} /> 
-                <Route path="/discuss/:id" element={<IndDiscuss/>}></Route>
-                <Route path="/login" element={<Login/>}/>
+                <Route path="/discuss" element={<Discuss UserId={loguserId} />} /> 
+                <Route path="/discuss/:id" element={<IndDiscuss userName={logNameUser} />}></Route>
+                <Route path="/login" element={<Login  callback = {setToken} callbackForName={setLogName} callbacklogID={setloguserId} />}/>
                 <Route path="*" element={<Home/>} />
             </Routes>
             </div>

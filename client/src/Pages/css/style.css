@@ -173,3 +173,17 @@ label {
     border-radius: 5px;
     padding: 20px
 } */
+
+
+.cardposted{
+    padding-bottom: 8%;
+}
+.btnadddiscuss{
+    /* position: relative; */
+    margin-left: 100px;
+    margin-top: 50px;
+    z-index: -1;
+}
+.publishedDCard{
+    margin-bottom: 80px;
+}

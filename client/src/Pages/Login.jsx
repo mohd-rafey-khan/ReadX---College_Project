@@ -1,67 +1,102 @@
-import React from "react";
+import React, {useState, useEffect}  from "react";
+import {BrowserRouter as  Link} from "react-router-dom";
 import "./css/login.css";
+import axios from "axios";
+
+const Login = (props)=>{
+
+    const [inputEmail,setInputEmail]=useState("");
+    const [inputpass,setInputPass]=useState("");
+    const [validEmail, setValidEmail] = useState("");
+    const [logSuccess,setlogSuccess] = useState("");
+
+// for validation
+
+    const validateEmail = (email)=>{
+        var re = /\S+@\S+\.\S+/;
+        return re.test(email);
+    }
+
+// ***********
 
 
-const Login = ()=>{
+    const onchangeEmail = async (event)=>{
+        setInputEmail(event.target.value);
+        if(validateEmail(event.target.value)){
+            setValidEmail("Valid Email..");
+        }else{
+            setValidEmail("Invalid Email..");
+        }
+    }
+    const onchangePass = async (event)=>{
+        setInputPass(event.target.value);
+    }
+
+    function pri(data){
+        console.log("Data "+data);
+        props.callback(data);
+    }
+
+    function getLogUserName(name){
+        setlogSuccess(name);
+        props.callbackForName(name);
+    }
+
+    function getLoggeduserId(id){
+        props.callbacklogID(id);
+    }
+
+
+    const loginSubmit = async (event)=>{
+        event.preventDefault();
+        // const url = "http://localhost:8080/api/users/login";
+        // headers: { "Content-Type": "multipart/form-data" },
+
+        try {
+            const token_data = await axios.post('http://localhost:8080/api/users/login',
+                {
+                    email:inputEmail,
+                    password:inputpass
+                },
+                {
+                    headers: { 'Content-Type':'application/json'},
+                }
+            )  
+            getLogUserName(token_data.data.name);
+            getLoggeduserId(token_data.data.id);
+            pri(token_data.data.token);
+        } catch (error) {
+            console.log("Load Failed ! "+error);
+        }
+        setInputEmail("");
+        setInputPass("");
+    }
+
+
     return(
         <>
-            <div className="container">
-                {/* <div class="login-wrap">
-                    <div class="login-html">
-                        <input id="tab-1" type="radio" name="tab" class="sign-in" checked/><label for="tab-1" class="tab">Sign In</label>
-                        <input id="tab-2" type="radio" name="tab" class="sign-up"/><label for="tab-2" class="tab">Sign Up</label>
-                        <div class="login-form">
-                            <form action="">
-                                <div class="sign-in-htm">
-                                    <div class="group">
-                                        <label for="user" class="label">Username</label>
-                                        <input name="user" value="" id="user" type="text" class="input"/>
-                                    </div>
-                                    <div class="group">
-                                        <label for="pass" class="label">Password</label>
-                                        <input id="pass" name="pass" type="password" class="input" data-type="password"/>
-                                    </div>
-                                    <div class="group">
-                                        <input id="check" name="check" type="checkbox" class="check" checked/>
-                                        <label for="check"><span class="icon"></span> Keep me Signed in</label>
-                                    </div>
-                                    <div class="group">
-                                        <input type="submit" class="button" value="Sign In"/>
-                                    </div>
-                                    <div class="hr"></div>
-                                    <div class="foot-lnk">
-                                        <a href="#forgot">Forgot Password?</a>
-                                    </div>
-                                </div>
-                            </form>
-                            <div class="sign-up-htm">
-                                <div class="group">
-                                    <label for="user" class="label">Username</label>
-                                    <input id="user" type="text" class="input"/>
-                                </div>
-                                <div class="group">
-                                    <label for="pass" class="label">Password</label>
-                                    <input id="pass" type="password" class="input" data-type="password"/>
-                                </div>
-                                <div class="group">
-                                    <label for="pass" class="label">Repeat Password</label>
-                                    <input id="pass" type="password" class="input" data-type="password"/>
-                                </div>
-                                <div class="group">
-                                    <label for="pass" class="label">Email Address</label>
-                                    <input id="pass" type="text" class="input"/>
-                                </div>
-                                <div class="group">
-                                    <input type="submit" class="button" value="Sign Up"/>
-                                </div>
-                                <div class="hr"></div>
-                                <div class="foot-lnk">
-                                    <label for="tab-1">Already Member?</label>
-                                </div>
-                            </div>
+            <div className="backview">
+                {/* <p>{token}</p> */}
+                {
+                    (logSuccess.length != 0)?  <h5 className="log_successMsg">{logSuccess} <span className="log_successMsg1">You are Succesfully Logged in.</span></h5>  :null
+                }
+                <div className="login-form">
+                    <h4>Login Here ..</h4><br></br>
+                    <form onSubmit={loginSubmit}>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Email address</label>
+                            <input type="email" class="form-control" onChange={onchangeEmail} value={inputEmail} required id="exampleInputEmail1" aria-describedby="emailHelp"/>
+                            <p className="valid_email">{validEmail}</p>
+                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                         </div>
-                    </div>
-                </div> */}
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Password</label>
+                            <input type="password" class="form-control" value={inputpass} onChange={onchangePass} id="exampleInputPassword1"/>
+                        </div>
+                        <button type="submit" class="btn btn-outline-success">Login</button>
+                    </form>
+                    {/* <button class="btn btn-outline-success" onClick={logout} >Log out</button> */}
+                </div>
             </div>
         </>
     );

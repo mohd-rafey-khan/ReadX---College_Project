@@ -6,9 +6,10 @@ auth-token =   eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjU2ZTUxZTFmYjVk
 {
 	"book_name":"Novel 1",
 	"author":"author 1",
-	"user_posted": "6256e51e1fb5d51c28948c8d",
-	"latitude": "2341",
-	"longitude": "6474"
+	"user_posted": "625d50384e697b8793f57004",
+	"latitude": "25.47119",
+	"longitude": "81.826409",
+	"image_name": "indpstv.jpeg"
 }
 
 
