@@ -5,6 +5,7 @@ import Home from "../Pages/Home";
 import Discuss from "../Pages/Discuss";
 import IndDiscuss from "../Pages/IndDiscuss";
 import Login from "../Pages/Login";
+import Register from "../Pages/Register";
 
 
 export default ()=>{
@@ -62,7 +63,6 @@ export default ()=>{
                     {
                         <Link class="nav-link" onClick={loginActions} to={urlLogout}>{loginStatus}</Link> 
                     }
-                    {/* <Link class="nav-link" to="/login">Login..</Link> */}
                     {/* <a class="nav-link" href="#">Register ..</a> */}
                     {/* <a href="#" onClick={logout}>Logout..</a> */}
                     </div>
@@ -75,11 +75,12 @@ export default ()=>{
                 <h1>Read X</h1>
             </div>
             <Routes>
-                <Route path="/" element={<Home/>} />
+                <Route path="/" element={<Home UserId={loguserId}/>} />
                 <Route path="/discuss" element={<Discuss UserId={loguserId} />} /> 
                 <Route path="/discuss/:id" element={<IndDiscuss userName={logNameUser} />}></Route>
                 <Route path="/login" element={<Login  callback = {setToken} callbackForName={setLogName} callbacklogID={setloguserId} />}/>
-                <Route path="*" element={<Home/>} />
+                <Route path="/register" element={<Register/>} />
+                <Route path="*" element={<Home UserId={loguserId}/>} />
             </Routes>
             </div>
         </Router>

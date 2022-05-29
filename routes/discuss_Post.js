@@ -12,12 +12,43 @@ router.get("/all", async (req,res)=>{
 // new addon
 
 router.post("/all", async (req,res)=>{
-    const updateLike = await discussPost.updateOne({_id:req.body.id},{
-        $inc:{
-            likes:1
-        }
-    });
-    res.send();
+    
+    /**
+     *  
+     *  check already that either the user liked post or not 
+     */
+     const discussPostByID = await discussPost.find({"likes.uid":{$exists:true, $eq: req.body.uid}});
+     if(discussPostByID.length!=0){   // means already liked by this user
+        const deleteLike = await discussPost.updateOne({_id:req.body.id},{
+            $pull:{
+                likes :{
+                    uid: req.body.uid,
+                }
+            }
+        });
+        console.log("deleted");
+     }else{
+          /**
+         * 
+         * like update code 
+         */
+        const updateLike = await discussPost.updateOne({_id:req.body.id},{
+            $push:{
+                likes :{
+                    uid: req.body.uid,
+                }
+            }
+        });
+        console.log("liked");
+     }
+    /**
+     * 
+     * fetch how many likes and send it to client side.
+     */
+    const likesHowmany = await discussPost.findById(req.body.id);
+    // console.log("total likes : "+likesHowmany.likes.length);
+    const like = likesHowmany.likes.length;
+    res.send(""+like);
 });
 
 // 

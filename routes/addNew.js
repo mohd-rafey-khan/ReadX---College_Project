@@ -8,10 +8,11 @@ const User = require('../models/User');
 
 
 router.post("/exchangepost", async (req,res)=>{
+    console.log(req.body);
     const post = new Post({
         book_name:req.body.book_name,
         author:req.body.author,
-        user_posted:req.body.user_posted,
+        user_posted:req.body.user_posted, 
         post_img:req.body.image_name,
         location: {
             type: "Point",
@@ -20,7 +21,7 @@ router.post("/exchangepost", async (req,res)=>{
     }); 
     try{
         const savedPost = await post.save();
-        res.send("post Created");
+        res.send(post);
     }catch(err){
         res.send("some error");
     }
@@ -44,7 +45,7 @@ router.post("/discusspost", async (req,res)=>{
     const comment = new Comments({
         title: req.body.title,
         body:req.body.body,
-        likes: req.body.likes,
+        // likes: req.body.likes,
         user_posted:root_user.name,
         createdAt:datetime,
         comments:[{ _id: new mongoose.Types.ObjectId().toHexString(), user_posted: for_name.name, body:req.body.commentBody }]

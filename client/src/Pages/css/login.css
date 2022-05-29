@@ -163,6 +163,9 @@ a{color:inherit;text-decoration:none}
 	margin: auto;
 	background-color: #e3f2fd;
 }
+.register-form{
+	height: 500px;
+}
 .backview{
 	height: 890px;
 	background-color: #040404a3;
@@ -180,4 +183,19 @@ a{color:inherit;text-decoration:none}
 	left: 36%;
 	font-size:30px;
 	color: #fff;
+}
+.reg_successMsg{
+	top: 15%;
+}
+.googlesign{
+	position: relative;
+	left: 120px;
+	top: -30px;
+	cursor: pointer;
+}
+.or{
+	position: relative;
+	left: 100px;
+	top: -30px;
+	color:cadetblue;
 }

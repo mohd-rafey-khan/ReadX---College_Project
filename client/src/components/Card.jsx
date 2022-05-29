@@ -13,18 +13,25 @@ export default (props)=>{
             <div class="card">
                             <div className="card-header">
                             <svg  onClick={async ()=>{
-                                try {
-                                    const liked = await axios.post('http://localhost:8080/api/discusspost/all',
-                                        {
-                                            id:props._id
-                                        },
-                                        {
-                                            headers: { 'Content-Type':'application/json'},
-                                        }
-                                    );  
-                                    setLikes(likes+1);
-                                } catch (error) {
-                                    console.log("liked Failed ! "+error);
+                                if(props.userId!=""){
+                                    try {
+                                        // console.log(props.userId);
+                                        const liked = await axios.post('http://localhost:8080/api/discusspost/all',
+                                            {
+                                                id:props._id,
+                                                uid:props.userId
+                                            },
+                                            {
+                                                headers: { 'Content-Type':'application/json'},
+                                            }
+                                        );  
+                                        // console.log(liked);
+                                        setLikes(liked.data);
+                                    } catch (error) {
+                                        console.log("liked Failed ! "+error);
+                                    }
+                                }else{
+                                    alert("Please Login First..")
                                 }
                             }} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-heart-fill like_btn" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>

@@ -14,9 +14,14 @@ const discuss_postSchema = new mongoose.Schema({
         min:6,
         max:255
     },
-    likes:{
-        type: Number
-    },
+    likes:[
+       {
+           uid:{
+               type:String,
+               unique: true
+           }
+       }
+    ],
     user_posted:{
         // user object Id
         type: String

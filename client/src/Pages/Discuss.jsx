@@ -49,7 +49,7 @@ const Discuss = (props)=>{
                     {
                         "title":titleforum,
                         "body":bodyforum,
-                        "likes":0,
+                        // "likes":null,
                         "user_posted": props.UserId,
                         "user_posted_comment":props.UserId,
                         "commentBody":commentforum
@@ -117,12 +117,13 @@ const Discuss = (props)=>{
                         {
                             discussPost.map(post=> 
                                 <Card
-                                    Likes={post.likes} 
+                                    Likes={post.likes.length} 
                                     title={post.title} 
                                     name={post.user_posted}
                                     numOfcom={post.comments.length} 
                                     time={post.createdAt}
                                     _id={post._id} 
+                                    userId={props.UserId}
                                     modalId={"post"+post._id} 
                                     bodyCard={post.body}  
                                     postedAt="Post Time"
